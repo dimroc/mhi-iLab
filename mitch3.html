@@ -23,7 +23,6 @@
 
     <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
     <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-    <!--<script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>-->
     <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
     <script type="text/javascript" src="javascripts/lib/touchscroll.js"></script>
 
@@ -55,26 +54,6 @@
         <a href="index.html" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
     </div>
     <div data-role="content">
-
-        <script type="text/javascript">
-
-            var stats = new Stats();
-
-            // Align top-left
-            stats.domElement.style.position = 'absolute';
-            stats.domElement.style.left = '0px';
-            stats.domElement.style.top = '0px';
-
-            document.body.appendChild(stats.domElement);
-
-            setInterval(function () {
-
-                stats.update();
-
-            }, 1000 / 60);
-
-
-        </script>
 
         <table id="data">
             <tfoot>
