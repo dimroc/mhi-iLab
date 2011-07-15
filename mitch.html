@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
-  <meta name="apple-touch-fullscreen" content="YES" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="YES"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
   <title>iLab Charting</title>
@@ -47,9 +47,6 @@
 
 </head>
 <body>
-
-
-
 
 
 <table id="data">
@@ -132,68 +129,48 @@
   </div>
   <div data-role="content">
 
-          <script type="text/javascript">
+    <script type="text/javascript">
 
-          var stats = new Stats();
+      function touchStart(e) {
 
-          // Align top-left
-          stats.domElement.style.position = 'absolute';
-          stats.domElement.style.left = '0px';
-          stats.domElement.style.top = '0px';
+        var box = document.getElementById("box");
 
-          document.body.appendChild( stats.domElement );
+        box.style.background = "green";
 
-          setInterval( function () {
+        e.preventDefault();
 
-              stats.update();
+        return false;
 
-          }, 1000 / 60 );
+      }
 
+      function touchMove(e) {
 
-        function touchStart( e ) {
+        var targetEvent = e.touches.item(0);
 
-             var box = document.getElementById("box");
+        var box = document.getElementById("box");
 
-             box.style.background = "green";
+        box.style.background = "yellow";
 
-             e.preventDefault();
+        box.style.left = targetEvent.clientX + "px";
 
-             return false;
+        box.style.top = targetEvent.clientY + "px";
 
-        }
+        e.preventDefault();
 
-         function touchMove( e ) {
+        return false;
 
-           var targetEvent =  e.touches.item(0);
-
-           var box = document.getElementById("box");
-
-           box.style.background = "yellow";
-
-           box.style.left = targetEvent.clientX + "px";
-
-           box.style.top= targetEvent.clientY + "px";
-
-           e.preventDefault();
-
-           return false;
-
-          }
-
+      }
 
 
     </script>
 
 
-
-<div id="_mcePaste">
- <div id="box" style="height:225px;width:225px;background:red;position:absolute;" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)"></div>
-
-
-</div>
+    <div id="_mcePaste">
+      <div id="box" style="height:225px;width:225px;background:red;position:absolute;" ontouchmove="touchMove(event)"
+           ontouchstart="touchStart(event)"></div>
 
 
-
+    </div>
 
 
     <!--<a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>-->
