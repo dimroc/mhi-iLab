@@ -2,6 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
+  <meta name="apple-touch-fullscreen" content="YES" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
   <title>iLab Charting</title>
@@ -13,6 +15,7 @@
         type="text/css"/>
   <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
   <link rel="stylesheet" type="text/css" href="stylesheets/demo.css" media="all">
+  <link rel="stylesheet" type="text/css" href="stylesheets/touchscroll.css" media="all">
 
   <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
   <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
@@ -20,11 +23,9 @@
 
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-  <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
+  <!--<script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>-->
   <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
-
-
-
+  <script type="text/javascript" src="javascripts/lib/touchscroll.js"></script>
 
 
   <style type="text/css" media="screen">
@@ -130,72 +131,68 @@
     <a href="index.html" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
   </div>
   <div data-role="content">
-  <script type="text/javascript">
-        var stats = new Stats();
 
-        // Align top-left
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
+          <script type="text/javascript">
 
-        document.body.appendChild( stats.domElement );
+          var stats = new Stats();
 
-        setInterval( function () {
+          // Align top-left
+          stats.domElement.style.position = 'absolute';
+          stats.domElement.style.left = '0px';
+          stats.domElement.style.top = '0px';
 
-            stats.update();
+          document.body.appendChild( stats.domElement );
 
-        }, 1000 / 60 );
-  </script>
+          setInterval( function () {
 
+              stats.update();
 
-
+          }, 1000 / 60 );
 
 
-    <h1>
-      Hello World
-    </h1>
+        function touchStart( e ) {
 
-<h2>TouchScroll</h2>
+             var box = document.getElementById("box");
 
-<p>TouchScroll is a JavaScript- and CSS 3-based scroller for devices using Webkit Touch (yes, that includes Android). It is meant to mimic “native” scrolling feeling and behavior as much as possible.</p>
+             box.style.background = "green";
 
-<p><strong>This demo works best on iPhone, iPad and in WebKit Nightly.</strong> Safari 4 kind of works, too.</p>
+             e.preventDefault();
 
-<h2>A JavaScript-based scroller?</h2>
+             return false;
 
-<p>While Safari Mobile features native scrolling, there are two reasons to re-implement scrolling with JavaScript: The original scrolling behavior is rather slow – we were looking for a solution that feels more fluid. And the viewport behavior of Mobile Safari and other mobile browsers using WebKit doesn’t allow for fixed positioned elements.</p>
+        }
 
-<h2>How is it done?</h2>
+         function touchMove( e ) {
 
-<p>TouchScroll uses a combination of JavaScript and CSS 3. All animations are done with CSS transitions – no JavaScript intervals. That means, the deceleration animation can be configured with a <a href="http://www.w3.org/TR/css3-transitions/#transition-timing-function_tag">bezier curve</a>.</p>
+           var targetEvent =  e.touches.item(0);
 
-<p>The elasticity effect when crossing the scroller bounds is achieved by dividing the bezier curve into two sub-curves using my (yet to be finished) <a href="http://github.com/davidaurelio/css-beziers">CSS Bezier library for JavaScript</a>.</p>
+           var box = document.getElementById("box");
 
-<p>On Safari mobile TouchScroll benefits from hardware acceleration for CSS transforms and transitions, which allows for very smooth scrolling. Android hasn’t any hardware support, which makes the animations choppier than on Apples devices.</p>
+           box.style.background = "yellow";
 
-<h2>Updating the scroller</h2>
+           box.style.left = targetEvent.clientX + "px";
 
-<p>The scroller updates its dimensions and position automatically on window resizes (<code>window.onresize</code>), orientation changes (<code>window.onorientationchange</code>) and DOM modifications inside the scroller (<code>DOMSubtreeModified</code> event). It only needs to be updated manually when it wasn’t visible on initialization (or last update) as soon it is made visible again.</p>
+           box.style.top= targetEvent.clientY + "px";
 
-<h2>Customization</h2>
+           e.preventDefault();
 
-<p>TouchScroll allows you to customize many aspects of the scrolling behavior. The following aspects are configurable:</p>
+           return false;
 
-<ul>
-<li>minimum scrolling offset – to prevent unintended scrolling, a minumum offset can be defined. It defaults to 5 pixels.</li>
-<li>Flicking behavior: maximum duration between the last move event and the release event that triggers flicking. The default is 150&thinsp;ms.</li>
-<li>Average friction and bezier curve for the flicking animation (CSS transition)</li>
-<li>Elasticity at the borders, and the maximum bounce length when flicking.</li>
-<li>The snapback duration and its timing function.</li>
-</ul>
+          }
 
-<h2>Get it!</h2>
 
-<p>TouchScroll is released under a BSD license. You can find more information on how to get TouchScroll <a href="http://uxebu.com/blog/2010/04/27/touchscroll-a-scrolling-layer-for-webkit-mobile">on our blog</a>.</p>
 
-<h2>More info</h2>
+    </script>
 
-<p>For more information <a href="mailto:da%20[AT]%20uxebu.com">contact me</a> via mail, follow me <a href="http://twitter.com/void_0">on twitter (@void_0)</a> and watch out for the TouchScroll blog post on <a href="http://uxebu.com/blog">our blog</a>.</p>
+
+
+<div id="_mcePaste">
+ <div id="box" style="height:225px;width:225px;background:red;position:absolute;" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)"></div>
+
+
+</div>
+
+
 
 
 
