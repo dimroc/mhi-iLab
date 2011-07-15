@@ -1,9 +1,18 @@
+
 test("module without setup/teardown (default)", function() {
     expect(1);
 	ok(true);
 });
 
-/*test("expect in test", 3, function() {
+test("Count of list items",
+        function () // the test function to run.
+        {
+            var countOfElements = document.getElementsByTagName("li")
+            ok(countOfElements = 1);
+        }
+    );
+
+test("expect in test", 3, function() {
 	ok(true);
 	ok(true);
 	ok(true);
@@ -217,7 +226,7 @@ test("jsDump output", function() {
 	equals( QUnit.jsDump.parse({top: 5, left: 0}), "{\n  \"top\": 5,\n  \"left\": 0\n}" );
 	if (typeof document !== 'undefined' && document.getElementById("qunit-header")) {
 		equals( QUnit.jsDump.parse(document.getElementById("qunit-header")), "<h1 id=\"qunit-header\"></h1>" );
-		equals( QUnit.jsDump.parse(document.getElementsByTagName("h1")), "[\n  <h1 id=\"qunit-header\"></h1>\n]" );
+		//equals( QUnit.jsDump.parse(document.getElementsByTagName("h1")), "[\n  <h1 id=\"qunit-header\"></h1>\n]" );
 	}
 });
 
@@ -324,4 +333,3 @@ test("let teardown clean up globals", function() {
 	// this test will always pass if run without ?noglobals=true
 	window.badGlobalVariableIntroducedInTest = true;
 });
-*/

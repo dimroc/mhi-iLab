@@ -45,7 +45,7 @@ var Stats = function () {
 	_container.style.width = '80px';
 	_container.style.opacity = '0.9';
 	_container.style.zIndex = '10001';
-	_container.addEventListener( 'click', swapMode, false );
+	//_container.addEventListener( 'click', swapMode, false );
 
 	// fps
 
@@ -81,7 +81,7 @@ var Stats = function () {
 	_msDiv = document.createElement( 'div' );
 	_msDiv.style.backgroundColor = 'rgb(' + Math.floor( _colors.ms.bg.r / 2 ) + ',' + Math.floor( _colors.ms.bg.g / 2 ) + ',' + Math.floor( _colors.ms.bg.b / 2 ) + ')';
 	_msDiv.style.padding = '2px 0px 3px 0px';
-	_msDiv.style.display = 'none';
+	//_msDiv.style.display = 'none';
 	_container.appendChild( _msDiv );
 
 	_msText = document.createElement( 'div' );
@@ -121,7 +121,7 @@ var Stats = function () {
 	_mbDiv = document.createElement( 'div' );
 	_mbDiv.style.backgroundColor = 'rgb(' + Math.floor( _colors.mb.bg.r / 2 ) + ',' + Math.floor( _colors.mb.bg.g / 2 ) + ',' + Math.floor( _colors.mb.bg.b / 2 ) + ')';
 	_mbDiv.style.padding = '2px 0px 3px 0px';
-	_mbDiv.style.display = 'none';
+	//_mbDiv.style.display = 'none';
 	_container.appendChild( _mbDiv );
 
 	_mbText = document.createElement( 'div' );

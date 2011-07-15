@@ -2,6 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
+  <meta name="apple-touch-fullscreen" content="YES" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
   <title>iLab Charting</title>
@@ -13,6 +15,7 @@
         type="text/css"/>
   <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
   <link rel="stylesheet" type="text/css" href="stylesheets/demo.css" media="all">
+  <link rel="stylesheet" type="text/css" href="stylesheets/touchscroll.css" media="all">
 
   <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
   <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
@@ -20,7 +23,10 @@
 
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-  <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
+  <!--<script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>-->
+  <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
+  <script type="text/javascript" src="javascripts/lib/touchscroll.js"></script>
+
 
   <style type="text/css" media="screen">
     body {
@@ -41,6 +47,11 @@
 
 </head>
 <body>
+
+
+
+
+
 <table id="data">
   <tfoot>
   <tr>
@@ -120,21 +131,83 @@
     <a href="index.html" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
   </div>
   <div data-role="content">
-    <h1>
-      Hello World
-    </h1>
-    <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div id="holder"></div>
+          <script type="text/javascript">
+
+          var stats = new Stats();
+
+          // Align top-left
+          stats.domElement.style.position = 'absolute';
+          stats.domElement.style.left = '0px';
+          stats.domElement.style.top = '0px';
+
+          document.body.appendChild( stats.domElement );
+
+          setInterval( function () {
+
+              stats.update();
+
+          }, 1000 / 60 );
+
+
+        function touchStart( e ) {
+
+             var box = document.getElementById("box");
+
+             box.style.background = "green";
+
+             e.preventDefault();
+
+             return false;
+
+        }
+
+         function touchMove( e ) {
+
+           var targetEvent =  e.touches.item(0);
+
+           var box = document.getElementById("box");
+
+           box.style.background = "yellow";
+
+           box.style.left = targetEvent.clientX + "px";
+
+           box.style.top= targetEvent.clientY + "px";
+
+           e.preventDefault();
+
+           return false;
+
+          }
+
+
+
+    </script>
+
+
+
+<div id="_mcePaste">
+ <div id="box" style="height:225px;width:225px;background:red;position:absolute;" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)"></div>
+
+
+</div>
+
+
+
+
+
+    <!--<a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>-->
+
+    <!--<div id="holder"></div>-->
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
         <li><a href="index.html" data-icon="star" data-transition="slide" data-ajax="false">Home</a></li>
-        <li><a href="#" data-icon="grid" data-transition="slide" class="ui-btn-active">Mitch</a></li>
+        <li><a href="#" data-icon="grid" data-transition="slide" data-ajax="false" class="ui-btn-active">Mitch</a></li>
         <li><a href="islam.html" data-icon="grid" data-transition="slide" data-ajax="false">Islam</a></li>
         <li><a href="dimitri.html" data-icon="grid" data-transition="slide" data-ajax="false">Dimitri</a></li>
-        <li><a href="raju.html" data-transition="slide" data-icon="info">Raju</a></li>
+        <li><a href="raju.html" data-transition="slide" data-icon="info" data-ajax="false">Raju</a></li>
       </ul>
     </div>
   </div>
