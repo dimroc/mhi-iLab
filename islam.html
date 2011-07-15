@@ -14,6 +14,8 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
   <link rel="stylesheet" type="text/css" href="stylesheets/demo.css" media="all">
 
+  <!-- needed for a jquery mobile -->
+  <link rel="stylesheet" href="stylesheets/jquery.mobile-1.0b1.css" />
   <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
   <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
   <script type="text/javascript" src="javascripts/lib/jquery-1.6.2.js"></script>
@@ -21,6 +23,7 @@
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
   <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
+
 
   <style type="text/css" media="screen">
     body {
@@ -38,6 +41,48 @@
 
   <!-- Has to be at the bottom -->
   <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
+
+
+
+<!-- what we will add for drawing lines -->
+  <script type="text/javascript">
+
+      
+
+
+$(document).ready(function() {
+  var x1,x2,y1,y2;
+  $(document).touchstart(function(e) {
+      alert("touch start x "+e.touches(0));
+  $("#current").attr({
+                     id: ''
+                     })
+  box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
+  $(document.body).append(box);
+
+  x1 = e.pageX;
+  y1 = e.pageY;
+  box.attr({id: 'current'}).css({
+                                top: e.pageY , //offsets
+                                left: e.pageX //offsets
+                               }).fadeIn();
+            });
+ $(document).touchmove(function(e) {
+     alert("touch move");
+   $("#current").css({
+                     width:Math.abs(e.pageX - x1), //offsets
+                     height:Math.abs(e.pageY - y1)//offsets
+                   }).fadeIn();
+                });
+ $(document).touchend(function() {
+     alert("touch end");
+                             $("#current").attr({ id: ''
+                         })
+                 });
+ });
+
+
+ </script>
 
 </head>
 <body>
