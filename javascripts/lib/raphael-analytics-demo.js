@@ -138,4 +138,4 @@ clear_chart = function()
   $("#holder").empty();
 }
 
-window. onload = render_chart;
+window.onload = render_chart;
