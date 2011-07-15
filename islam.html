@@ -47,39 +47,74 @@
 <!-- what we will add for drawing lines -->
   <script type="text/javascript">
 
-      
+
+          var x1,x2,y1,y2;
+
+          var stats = new Stats();
+
+          // Align top-left
+          stats.domElement.style.position = 'absolute';
+          stats.domElement.style.left = '0px';
+          stats.domElement.style.top = '0px';
+
+          document.body.appendChild( stats.domElement );
+
+          setInterval( function () {
+
+              stats.update();
+
+          }, 1000 / 60 );
 
 
-$(document).ready(function() {
-  var x1,x2,y1,y2;
-  $(document).touchstart(function(e) {
-      alert("touch start x "+e.touches(0));
-  $("#current").attr({
-                     id: ''
-                     })
-  box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
-  $(document.body).append(box);
+        function touchStart( e ) {
 
-  x1 = e.pageX;
-  y1 = e.pageY;
-  box.attr({id: 'current'}).css({
-                                top: e.pageY , //offsets
-                                left: e.pageX //offsets
-                               }).fadeIn();
-            });
- $(document).touchmove(function(e) {
-     alert("touch move");
-   $("#current").css({
-                     width:Math.abs(e.pageX - x1), //offsets
-                     height:Math.abs(e.pageY - y1)//offsets
+            var targetEvent =  e.touches.item(0);
+
+            $("#current").attr({
+                                 id: ''
+                                 })
+              box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
+              $(document.body).append(box);
+
+              x1 = targetEvent.clientX;
+              y1 = targetEvent.clientY;
+              box.attr({id: 'current'}).css({
+                                            top: targetEvent.clientX , //offsets
+                                            left: targetEvent.clientY //offsets
+                                           }).fadeIn();
+
+            
+             e.preventDefault();
+
+             return false;
+
+        }
+
+         function touchMove( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+              $("#current").css({
+                     width:Math.abs(targetEvent.clientX - x1), //offsets
+                     height:Math.abs(targetEvent.clientY - y1)//offsets
                    }).fadeIn();
-                });
- $(document).touchend(function() {
-     alert("touch end");
-                             $("#current").attr({ id: ''
-                         })
-                 });
- });
+            
+             e.preventDefault();
+
+             return false;
+
+          }
+
+        function touchEnd( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+            alert(" touch End "+ targetEvent.clientX + "px");
+             e.preventDefault();
+
+             return false;
+
+          }
 
 
  </script>
@@ -170,7 +205,7 @@ $(document).ready(function() {
     </h1>
     <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div id="holder"></div>
+    <div id="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
