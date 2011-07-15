@@ -132,7 +132,7 @@
   </div>
   <div data-role="content">
 
-          <script type="text/javascript">
+    <script type="text/javascript">
 
           var stats = new Stats();
 
@@ -150,47 +150,59 @@
           }, 1000 / 60 );
 
 
-        function touchStart( e ) {
 
-             var box = document.getElementById("box");
+var logDiv = document.getElementById("log");
+  var logDetailsDiv = document.getElementById("logDetails");
 
-             box.style.background = "green";
+  function log( text ) {
+      logDiv.innerHTML = text;
+  }
 
-             e.preventDefault();
+  function inspect( obj ) {
+    if (typeof obj === "undefined") {
+        return "undefined";
+    }
+    var _props = [];
 
-             return false;
+      for ( var i in obj ) {
+          _props.push( i + " : " + obj[i] );
+      }
+      return " {" + _props.join( ",<br>" ) + "} ";
+  }
 
-        }
+  function touchStart( e ) {
+    var box = document.getElementById("box");
+    box.style.background = "green";
+    log( "Touch Start! " + e.type + " event=" + inspect( e ) );
+    logDetails( inspect( e.touches.item(0) ) );
+    e.preventDefault();
+    return false;
+  }
 
-         function touchMove( e ) {
-
-           var targetEvent =  e.touches.item(0);
-
-           var box = document.getElementById("box");
-
-           box.style.background = "yellow";
-
-           box.style.left = targetEvent.clientX + "px";
-
-           box.style.top= targetEvent.clientY + "px";
-
-           e.preventDefault();
-
-           return false;
-
-          }
-
+  function touchMove( e ) {
+    var targetEvent =  e.touches.item(0);
+    var box = document.getElementById("box");
+    box.style.background = "yellow";
+    box.style.left = targetEvent.clientX + "px";
+    box.style.top= targetEvent.clientY + "px";
+    log("[x,y]=" + targetEvent.clientX + "," + targetEvent.clientY );
+    logDetails( inspect( e ) );
+    e.preventDefault();
+    return false;
+  }
 
 
     </script>
 
 
 
-<div id="_mcePaste">
- <div id="box" style="height:225px;width:225px;background:red;position:absolute;" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)"></div>
+
+ <div data-role="content" id="log"></div>
+ <div data-role="content" id="logDetails"></div>
+ <div data-role="content" id="box" style="height:225px;width:225px;background:red;position:absolute;" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)"></div>
 
 
-</div>
+
 
 
 
@@ -201,6 +213,7 @@
     <!--<div id="holder"></div>-->
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
+    <a href="mitch3.html" data-role="button" data-icon="star" data-transition="flip">Data</a>
     <div data-role="navbar">
       <ul>
         <li><a href="index.html" data-icon="star" data-transition="slide" data-ajax="false">Home</a></li>
