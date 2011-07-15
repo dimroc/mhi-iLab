@@ -14,6 +14,8 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
   <link rel="stylesheet" type="text/css" href="stylesheets/demo.css" media="all">
 
+  <!-- needed for a jquery mobile -->
+  <link rel="stylesheet" href="stylesheets/jquery.mobile-1.0b1.css" />
   <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
   <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
   <script type="text/javascript" src="javascripts/lib/jquery-1.6.2.js"></script>
@@ -21,6 +23,7 @@
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
   <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
+
 
   <style type="text/css" media="screen">
     body {
@@ -38,6 +41,149 @@
 
   <!-- Has to be at the bottom -->
   <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
+
+
+
+<!-- what we will add for drawing lines -->
+  <script type="text/javascript">
+
+/*
+          var x1,x2,y1,y2;
+
+          var stats = new Stats();
+
+          // Align top-left
+          stats.domElement.style.position = 'absolute';
+          stats.domElement.style.left = '0px';
+          stats.domElement.style.top = '0px';
+
+          document.body.appendChild( stats.domElement );
+
+          setInterval( function () {
+
+              stats.update();
+
+          }, 1000 / 60 );
+
+
+        function touchStart( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+            $("#current").attr({
+                                 id: ''
+                                 })
+              box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
+              $(document.body).append(box);
+
+              x1 = targetEvent.clientX;
+              y1 = targetEvent.clientY;
+              box.attr({id: 'current'}).css({
+                                            top: targetEvent.clientX , //offsets
+                                            left: targetEvent.clientY //offsets
+                                           }).fadeIn();
+
+            
+             e.preventDefault();
+
+             return false;
+
+        }
+
+         function touchMove( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+              $("#current").css({
+                     width:Math.abs(targetEvent.clientX - x1), //offsets
+                     height:Math.abs(targetEvent.clientY - y1)//offsets
+                   }).fadeIn();
+            
+             e.preventDefault();
+
+             return false;
+
+          }
+
+        function touchEnd( e ) {
+
+            $("#current").attr({ id: ''
+                         });
+             e.preventDefault(); 
+
+             return false;
+
+          }
+*/
+
+
+      // free drawing
+
+        var draw = false;
+
+          var stats = new Stats();
+
+          // Align top-left
+          stats.domElement.style.position = 'absolute';
+          stats.domElement.style.left = '0px';
+          stats.domElement.style.top = '0px';
+
+          document.body.appendChild( stats.domElement );
+
+          setInterval( function () {
+
+              stats.update();
+
+          }, 1000 / 60 );
+
+
+        function touchStart( e ) {
+
+
+
+            draw=true;
+             e.preventDefault();
+
+             return false;
+
+        }
+
+         function touchMove( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+             if(draw==true){
+
+                //make a pixel (5X5) at mouse position
+                pointer = $('<span>').css({
+                                                'position':'absolute',
+                                                'background-color':'#ff00ff',
+                                                'width':'5px',
+                                                'height':'5px',
+                                                top: targetEvent.pageY ,    //offsets
+                                                left: targetEvent.pageX   //offsets
+                                           });
+
+                //append it to body
+                $(document.body).append(pointer);
+                $(document.body).append(pointer);
+        }
+             e.preventDefault();
+
+             return false;
+
+          }
+
+        function touchEnd( e ) {
+
+            draw=false;
+             e.preventDefault();
+
+             return false;
+
+          }
+
+ </script>
 
 </head>
 <body>
@@ -125,7 +271,7 @@
     </h1>
     <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div id="holder"></div>
+    <div id="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
