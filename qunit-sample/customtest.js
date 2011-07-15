@@ -3,7 +3,7 @@ test("module without setup/teardown (default)", function() {
 	ok(true);
 });
 
-/*test("expect in test", 3, function() {
+test("expect in test", 3, function() {
 	ok(true);
 	ok(true);
 	ok(true);
@@ -324,4 +324,3 @@ test("let teardown clean up globals", function() {
 	// this test will always pass if run without ?noglobals=true
 	window.badGlobalVariableIntroducedInTest = true;
 });
-*/
