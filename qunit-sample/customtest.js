@@ -1,5 +1,5 @@
 test("module without setup/teardown (default)", function() {
-	expect(1);
+    expect(1);
 	ok(true);
 });
 
@@ -217,7 +217,7 @@ test("jsDump output", function() {
 	equals( QUnit.jsDump.parse({top: 5, left: 0}), "{\n  \"top\": 5,\n  \"left\": 0\n}" );
 	if (typeof document !== 'undefined' && document.getElementById("qunit-header")) {
 		equals( QUnit.jsDump.parse(document.getElementById("qunit-header")), "<h1 id=\"qunit-header\"></h1>" );
-		equals( QUnit.jsDump.parse(document.getElementsByTagName("h1")), "[\n  <h1 id=\"qunit-header\"></h1>\n]" );
+		//equals( QUnit.jsDump.parse(document.getElementsByTagName("h1")), "[\n  <h1 id=\"qunit-header\"></h1>\n]" );
 	}
 });
 
