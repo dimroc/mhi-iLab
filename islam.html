@@ -107,9 +107,8 @@
 
         function touchEnd( e ) {
 
-            var targetEvent =  e.touches.item(0);
-
-            alert(" touch End "+ targetEvent.clientX + "px");
+            $("#current").attr({ id: ''
+                         });
              e.preventDefault();
 
              return false;
