@@ -47,7 +47,7 @@
 <!-- what we will add for drawing lines -->
   <script type="text/javascript">
 
-
+/*
           var x1,x2,y1,y2;
 
           var stats = new Stats();
@@ -114,7 +114,74 @@
              return false;
 
           }
+*/
 
+
+      // free drawing
+
+        var draw = false;
+
+          var stats = new Stats();
+
+          // Align top-left
+          stats.domElement.style.position = 'absolute';
+          stats.domElement.style.left = '0px';
+          stats.domElement.style.top = '0px';
+
+          document.body.appendChild( stats.domElement );
+
+          setInterval( function () {
+
+              stats.update();
+
+          }, 1000 / 60 );
+
+
+        function touchStart( e ) {
+
+
+
+            draw=true;
+             e.preventDefault();
+
+             return false;
+
+        }
+
+         function touchMove( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+             if(draw==true){
+
+                //make a pixel (5X5) at mouse position
+                pointer = $('<span>').css({
+                                                'position':'absolute',
+                                                'background-color':'#ff00ff',
+                                                'width':'5px',
+                                                'height':'5px',
+                                                top: targetEvent.pageY ,    //offsets
+                                                left: targetEvent.pageX   //offsets
+                                           });
+
+                //append it to body
+                $(document.body).append(pointer);
+                $(document.body).append(pointer);
+        }
+             e.preventDefault();
+
+             return false;
+
+          }
+
+        function touchEnd( e ) {
+
+            draw=false;
+             e.preventDefault();
+
+             return false;
+
+          }
 
  </script>
 
