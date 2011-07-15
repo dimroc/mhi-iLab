@@ -13,21 +13,22 @@
   <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="stylesheets/ipad.css"
         type="text/css"/>
   <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
+  <link rel="stylesheet" href="javascripts/lib/qunit/qunit.css" type="text/css" media="screen">
 
   <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
   <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
   <script type="text/javascript" src="javascripts/lib/jquery-1.6.2.js"></script>
-
-  <!-- Has to be at the bottom -->
-  <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
   <script type="text/javascript" src="javascripts/lib/qunit/qunit.js"></script>
   <script type="text/javascript" src="qunit-sample/customtest.js"></script>
-  <link rel="stylesheet" href="javascripts/lib/qunit/qunit.css" type="text/css" media="screen">
+
   <script type="text/javascript">
           $().ready(function () {
               $("#qunit-tests").show();
           });
   </script>
+
+  <!-- Has to be at the bottom -->
+  <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
 </head>
 <body>
 <div data-role="page" data-add-back-btn="true">

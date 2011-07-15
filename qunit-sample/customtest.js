@@ -1,7 +1,16 @@
+
 test("module without setup/teardown (default)", function() {
     expect(1);
 	ok(true);
 });
+
+test("Count of list items",
+        function () // the test function to run.
+        {
+            var countOfElements = document.getElementsByTagName("li")
+            ok(countOfElements = 1);
+        }
+    );
 
 test("expect in test", 3, function() {
 	ok(true);
