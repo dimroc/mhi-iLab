@@ -1,210 +1,234 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
-  <meta name="apple-touch-fullscreen" content="YES" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
+    <meta name="apple-touch-fullscreen" content="YES"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
-  <title>iLab Charting</title>
-  <!-- iPad/iPhone specific css below, add after your main css >
-   <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />
-   <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />
-   -->
-  <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="stylesheets/ipad.css"
-        type="text/css"/>
-  <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
-  <link rel="stylesheet" type="text/css" href="stylesheets/demo.css" media="all">
-  <link rel="stylesheet" type="text/css" href="stylesheets/touchscroll.css" media="all">
+    <title>iLab Charting</title>
+    <!-- iPad/iPhone specific css below, add after your main css >
+    <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />
+    -->
+    <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="stylesheets/ipad.css"
+          type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
+    <link rel="stylesheet" type="text/css" href="stylesheets/demo.css" media="all">
+    <link rel="stylesheet" type="text/css" href="stylesheets/touchscroll.css" media="all">
 
-  <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
-  <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
-  <script type="text/javascript" src="javascripts/lib/jquery-1.6.2.js"></script>
+    <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
+    <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
+    <script type="text/javascript" src="javascripts/lib/jquery-1.6.2.js"></script>
 
-  <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
-  <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-  <!--<script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>-->
-  <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
-  <script type="text/javascript" src="javascripts/lib/touchscroll.js"></script>
+    <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
+    <script type="text/javascript" src="javascripts/lib/popup.js"></script>
+    <!--<script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>-->
+    <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
+    <script type="text/javascript" src="javascripts/lib/touchscroll.js"></script>
 
 
-  <style type="text/css" media="screen">
-    body {
-      background: #000;
-    }
+    <style type="text/css" media="screen">
+        body {
+            background: #000;
+        }
 
-    #holder {
-      height: 300px;
-      margin: -125px 0 0 -400px;
-      width: 800px;
-      /*background: #000;*/
+        #holder {
+            height: 300px;
+            margin: -125px 0 0 -400px;
+            width: 800px;
+            /*background: #000;*/
 
-    }
-  </style>
+        }
+    </style>
 
-  <!-- Has to be at the bottom -->
-  <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
+    <!-- Has to be at the bottom -->
+    <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
 
 </head>
 <body>
 
 
 <div data-role="page" data-add-back-btn="true" data-theme="a">
-  <div data-role="header">
-    <h1>The Future is Interpreted - Interactive Charting</h1>
-    <a href="index.html" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
-  </div>
-  <div data-role="content">
-
-    <script type="text/javascript">
-
-          var stats = new Stats();
-
-          // Align top-left
-          stats.domElement.style.position = 'absolute';
-          stats.domElement.style.left = '0px';
-          stats.domElement.style.top = '0px';
-
-          document.body.appendChild( stats.domElement );
-
-          setInterval( function () {
-
-              stats.update();
-
-          }, 1000 / 60 );
-
-
-    </script>
-
-      <table id="data">
-  <tfoot>
-  <tr>
-    <th>1</th>
-    <th>2</th>
-    <th>3</th>
-    <th>4</th>
-    <th>5</th>
-    <th>6</th>
-    <th>7</th>
-    <th>8</th>
-    <th>9</th>
-    <th>10</th>
-    <th>11</th>
-    <th>12</th>
-    <th>13</th>
-    <th>14</th>
-    <th>15</th>
-    <th>16</th>
-    <th>17</th>
-    <th>18</th>
-    <th>19</th>
-    <th>19</th>
-    <th>20</th>
-    <th>22</th>
-    <th>23</th>
-    <th>24</th>
-    <th>25</th>
-    <th>26</th>
-    <th>27</th>
-    <th>28</th>
-    <th>29</th>
-    <th>30</th>
-    <th>31</th>
-  </tr>
-  </tfoot>
-  <tbody>
-  <tr>
-    <td>8</td>
-    <td>25</td>
-    <td>27</td>
-    <td>25</td>
-    <td>54</td>
-    <td>59</td>
-    <td>79</td>
-    <td>47</td>
-    <td>27</td>
-    <td>44</td>
-    <td>44</td>
-    <td>51</td>
-    <td>56</td>
-    <td>83</td>
-    <td>12</td>
-    <td>91</td>
-    <td>52</td>
-    <td>12</td>
-    <td>40</td>
-    <td>8</td>
-    <td>60</td>
-    <td>29</td>
-    <td>7</td>
-    <td>33</td>
-    <td>56</td>
-    <td>25</td>
-    <td>1</td>
-    <td>78</td>
-    <td>70</td>
-    <td>68</td>
-    <td>2</td>
-  </tr>
-  </tbody>
-</table>
-
-
-      <h2>TouchScroll</h2>
-
-      <p>TouchScroll is a JavaScript- and CSS 3-based scroller for devices using Webkit Touch (yes, that includes Android). It is meant to mimic “native” scrolling feeling and behavior as much as possible.</p>
-
-      <p><strong>This demo works best on iPhone, iPad and in WebKit Nightly.</strong> Safari 4 kind of works, too.</p>
-
-      <h2>A JavaScript-based scroller?</h2>
-
-      <p>While Safari Mobile features native scrolling, there are two reasons to re-implement scrolling with JavaScript: The original scrolling behavior is rather slow – we were looking for a solution that feels more fluid. And the viewport behavior of Mobile Safari and other mobile browsers using WebKit doesn’t allow for fixed positioned elements.</p>
-
-      <h2>How is it done?</h2>
-
-      <p>TouchScroll uses a combination of JavaScript and CSS 3. All animations are done with CSS transitions – no JavaScript intervals. That means, the deceleration animation can be configured with a <a href="http://www.w3.org/TR/css3-transitions/#transition-timing-function_tag">bezier curve</a>.</p>
-
-      <p>The elasticity effect when crossing the scroller bounds is achieved by dividing the bezier curve into two sub-curves using my (yet to be finished) <a href="http://github.com/davidaurelio/css-beziers">CSS Bezier library for JavaScript</a>.</p>
-
-      <p>On Safari mobile TouchScroll benefits from hardware acceleration for CSS transforms and transitions, which allows for very smooth scrolling. Android hasn’t any hardware support, which makes the animations choppier than on Apples devices.</p>
-
-      <h2>Updating the scroller</h2>
-
-      <p>The scroller updates its dimensions and position automatically on window resizes (<code>window.onresize</code>), orientation changes (<code>window.onorientationchange</code>) and DOM modifications inside the scroller (<code>DOMSubtreeModified</code> event). It only needs to be updated manually when it wasn’t visible on initialization (or last update) as soon it is made visible again.</p>
-
-      <h2>Customization</h2>
-
-      <p>TouchScroll allows you to customize many aspects of the scrolling behavior. The following aspects are configurable:</p>
-
-      <ul>
-      <li>minimum scrolling offset – to prevent unintended scrolling, a minumum offset can be defined. It defaults to 5 pixels.</li>
-      <li>Flicking behavior: maximum duration between the last move event and the release event that triggers flicking. The default is 150&thinsp;ms.</li>
-      <li>Average friction and bezier curve for the flicking animation (CSS transition)</li>
-      <li>Elasticity at the borders, and the maximum bounce length when flicking.</li>
-      <li>The snapback duration and its timing function.</li>
-      </ul>
-
-      <h2>Get it!</h2>
-
-      <p>TouchScroll is released under a BSD license. You can find more information on how to get TouchScroll <a href="http://uxebu.com/blog/2010/04/27/touchscroll-a-scrolling-layer-for-webkit-mobile">on our blog</a>.</p>
-
-      <h2>More info</h2>
-
-      <p>For more information <a href="mailto:da%20[AT]%20uxebu.com">contact me</a> via mail, follow me <a href="http://twitter.com/void_0">on twitter (@void_0)</a> and watch out for the TouchScroll blog post on <a href="http://uxebu.com/blog">our blog</a>.</p>
-
- </div>
-  <div data-role="footer" data-id="universal_footer" data-position="fixed">
-    <a href="mitch.html" data-role="button" data-icon="star" data-transition="flip">Chart</a>
-    <div data-role="navbar">
-      <ul>
-        <li><a href="index.html" data-icon="star" data-transition="slide" data-ajax="false">Home</a></li>
-        <li><a href="#" data-icon="grid" data-transition="slide" data-ajax="false" class="ui-btn-active">Mitch</a></li>
-        <li><a href="islam.html" data-icon="grid" data-transition="slide" data-ajax="false">Islam</a></li>
-        <li><a href="dimitri.html" data-icon="grid" data-transition="slide" data-ajax="false">Dimitri</a></li>
-        <li><a href="raju.html" data-transition="slide" data-icon="info" data-ajax="false">Raju</a></li>
-      </ul>
+    <div data-role="header">
+        <h1>The Future is Interpreted - Interactive Charting</h1>
+        <a href="index.html" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
     </div>
-  </div>
+    <div data-role="content">
+
+        <script type="text/javascript">
+
+            var stats = new Stats();
+
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            document.body.appendChild(stats.domElement);
+
+            setInterval(function () {
+
+                stats.update();
+
+            }, 1000 / 60);
+
+
+        </script>
+
+        <table id="data">
+            <tfoot>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+                <th>19</th>
+                <th>19</th>
+                <th>20</th>
+                <th>22</th>
+                <th>23</th>
+                <th>24</th>
+                <th>25</th>
+                <th>26</th>
+                <th>27</th>
+                <th>28</th>
+                <th>29</th>
+                <th>30</th>
+                <th>31</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr>
+                <td>8</td>
+                <td>25</td>
+                <td>27</td>
+                <td>25</td>
+                <td>54</td>
+                <td>59</td>
+                <td>79</td>
+                <td>47</td>
+                <td>27</td>
+                <td>44</td>
+                <td>44</td>
+                <td>51</td>
+                <td>56</td>
+                <td>83</td>
+                <td>12</td>
+                <td>91</td>
+                <td>52</td>
+                <td>12</td>
+                <td>40</td>
+                <td>8</td>
+                <td>60</td>
+                <td>29</td>
+                <td>7</td>
+                <td>33</td>
+                <td>56</td>
+                <td>25</td>
+                <td>1</td>
+                <td>78</td>
+                <td>70</td>
+                <td>68</td>
+                <td>2</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h2>TouchScroll</h2>
+
+        <p>TouchScroll is a JavaScript- and CSS 3-based scroller for devices using Webkit Touch (yes, that includes
+            Android). It is meant to mimic “native” scrolling feeling and behavior as much as possible.</p>
+
+        <p><strong>This demo works best on iPhone, iPad and in WebKit Nightly.</strong> Safari 4 kind of works, too.</p>
+
+        <h2>A JavaScript-based scroller?</h2>
+
+        <p>While Safari Mobile features native scrolling, there are two reasons to re-implement scrolling with
+            JavaScript: The original scrolling behavior is rather slow – we were looking for a solution that feels more
+            fluid. And the viewport behavior of Mobile Safari and other mobile browsers using WebKit doesn’t allow for
+            fixed positioned elements.</p>
+
+        <h2>How is it done?</h2>
+
+        <p>TouchScroll uses a combination of JavaScript and CSS 3. All animations are done with CSS transitions – no
+            JavaScript intervals. That means, the deceleration animation can be configured with a <a
+                    href="http://www.w3.org/TR/css3-transitions/#transition-timing-function_tag">bezier curve</a>.</p>
+
+        <p>The elasticity effect when crossing the scroller bounds is achieved by dividing the bezier curve into two
+            sub-curves using my (yet to be finished) <a href="http://github.com/davidaurelio/css-beziers">CSS Bezier
+                library for JavaScript</a>.</p>
+
+        <p>On Safari mobile TouchScroll benefits from hardware acceleration for CSS transforms and transitions, which
+            allows for very smooth scrolling. Android hasn’t any hardware support, which makes the animations choppier
+            than on Apples devices.</p>
+
+        <h2>Updating the scroller</h2>
+
+        <p>The scroller updates its dimensions and position automatically on window resizes
+            (<code>window.onresize</code>), orientation changes (<code>window.onorientationchange</code>) and DOM
+            modifications inside the scroller (<code>DOMSubtreeModified</code> event). It only needs to be updated
+            manually when it wasn’t visible on initialization (or last update) as soon it is made visible again.</p>
+
+        <h2>Customization</h2>
+
+        <p>TouchScroll allows you to customize many aspects of the scrolling behavior. The following aspects are
+            configurable:</p>
+
+        <ul>
+            <li>minimum scrolling offset – to prevent unintended scrolling, a minumum offset can be defined. It defaults
+                to 5 pixels.
+            </li>
+            <li>Flicking behavior: maximum duration between the last move event and the release event that triggers
+                flicking. The default is 150&thinsp;ms.
+            </li>
+            <li>Average friction and bezier curve for the flicking animation (CSS transition)</li>
+            <li>Elasticity at the borders, and the maximum bounce length when flicking.</li>
+            <li>The snapback duration and its timing function.</li>
+        </ul>
+
+        <h2>Get it!</h2>
+
+        <p>TouchScroll is released under a BSD license. You can find more information on how to get TouchScroll <a
+                href="http://uxebu.com/blog/2010/04/27/touchscroll-a-scrolling-layer-for-webkit-mobile">on our blog</a>.
+        </p>
+
+        <h2>More info</h2>
+
+        <p>For more information <a href="mailto:da%20[AT]%20uxebu.com">contact me</a> via mail, follow me <a
+                href="http://twitter.com/void_0">on twitter (@void_0)</a> and watch out for the TouchScroll blog post on
+            <a href="http://uxebu.com/blog">our blog</a>.</p>
+
+    </div>
+    <div data-role="footer" data-id="universal_footer" data-position="fixed">
+        <a href="mitch.html" data-role="button" data-icon="star" data-transition="flip">Chart</a>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="index.html" data-icon="star" data-transition="slide" data-ajax="false">Home</a></li>
+                <li><a href="#" data-icon="grid" data-transition="slide" data-ajax="false"
+                       class="ui-btn-active">Mitch</a></li>
+                <li><a href="islam.html" data-icon="grid" data-transition="slide" data-ajax="false">Islam</a></li>
+                <li><a href="dimitri.html" data-icon="grid" data-transition="slide" data-ajax="false">Dimitri</a></li>
+                <li><a href="raju.html" data-transition="slide" data-icon="info" data-ajax="false">Raju</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>
