@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>
+
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+  <title>iLab Charting</title>
+  <!-- iPad/iPhone specific css below, add after your main css >
+   <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />
+   <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />
+   -->
+  <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="stylesheets/ipad.css"
+        type="text/css"/>
+  <link rel="stylesheet" type="text/css" href="stylesheets/jquery.mobile-1.0b1.css" media="all">
+
+  <!-- If you application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
+  <script type="text/javascript" charset="utf-8" src="javascripts/lib/phonegap.0.9.6.js"></script>
+  <script type="text/javascript" src="javascripts/lib/jquery-1.6.2.js"></script>
+
+  <!-- Has to be at the bottom -->
+  <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
+</head>
+<body>
+<div data-role="page" data-add-back-btn="true">
+  <div data-role="header"><h1>Mitch</h1></div>
+  <div data-role="content">Mitch's World</div>
+  <div data-role="footer" data-id="universal_footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="index.html" data-icon="star" data-transition="slide">Home</a></li>
+        <li><a href="mitch.html" data-transition="slide" class="ui-btn-active">Mitch</a></li>
+        <li><a href="islam.html" data-transition="slide">Islam</a></li>
+        <li><a href="dimitri.html" data-transition="slide">Dimitri</a></li>
+        <li><a href="raju.html" data-transition="slide" data-icon="info">Raju</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>
