@@ -52,7 +52,7 @@ render_chart = function () {
     
     // Draw
     var width = 800,
-        height = 250,
+        height = 300,
         leftgutter = 30,
         bottomgutter = 20,
         topgutter = 20,
