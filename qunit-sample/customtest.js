@@ -5,6 +5,11 @@ test("[UI] Check title of the page", function () {
     equal(document.getElementById("header").innerHTML, "Raju's", "Okay");
 });
 
+test("[UI] Check the number buttons", function () {
+    var mycount = $('ul>li').length
+    ok(mycount == 5);
+});
+
 test("[UI] Check the existence of the raphael paper", function () {
   ok(PAPER != undefined && PAPER != null);
 });
@@ -14,11 +19,12 @@ test("[UI] Check the existence of a circle", function () {
   ok(PAPER.circles.length > 0);
 });
 
-test("Check title of the page", function () {
-    equal(document.getElementById("header").innerHTML, "Raju's", "Okay");
+test("[UI] Count the number of circles", function () {
+  ok(PAPER.circles.length == 6);
 });
 
-test("module without setup/teardown (default)", function() {
+
+/*test("module without setup/teardown (default)", function() {
     expect(1);
 	ok(true);
 });
@@ -351,4 +357,4 @@ module("noglobals", {
 test("let teardown clean up globals", function() {
 	// this test will always pass if run without ?noglobals=true
 	window.badGlobalVariableIntroducedInTest = true;
-});
+});*/
