@@ -23,17 +23,23 @@
   <script type="text/javascript" src="javascripts/lib/custom-chart.js"></script>
   <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
 
+  <script>
+     function BlockMove(event) {
+      // Tell Safari not to move the window.
+      event.preventDefault() ;
+     }
+
+       $("div").live("pagecreate", function(){
+            var url = $(this).jqmData("url");
+           clear_chart();
+           render_chart();
+        });
+
+   </script>
+
   <style type="text/css" media="screen">
     body {
       background: #000;
-    }
-
-    #holder {
-      /*height: 400px;*/
-      /*margin: -150px 0 0 -450px;*/
-      /*width: 800px;*/
-      /*background: #000;*/
-
     }
   </style>
 
@@ -41,7 +47,7 @@
   <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
 
 </head>
-<body>
+<body  ontouchmove="BlockMove(event);">
 <table id="data">
   <tfoot>
   <tr>
@@ -126,20 +132,20 @@
     </h1>
     <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div id="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
+    <div class="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li><a href="#" data-icon="star" data-transition="slide" class="ui-btn-active" rel="external" data-ajax="false">Home</a>
+        <li><a href="#" data-icon="star" data-transition="slide" class="ui-btn-active">Home</a>
         </li>
-        <li><a href="mitch.html" data-icon="grid" data-transition="slide" rel="external" data-ajax="false">Mitch</a>
+        <li><a href="mitch.html" data-icon="grid" data-transition="slide">Mitch</a>
         </li>
-        <li><a href="islam.html" data-icon="grid" data-transition="slide" rel="external" data-ajax="false">Islam</a>
+        <li><a href="islam.html" data-icon="grid" data-transition="slide">Islam</a>
         </li>
-        <li><a href="dimitri.html" data-icon="grid" data-transition="slide" rel="external" data-ajax="false">Dimitri</a>
+        <li><a href="dimitri.html" data-icon="grid" data-transition="slide">Dimitri</a>
         </li>
-        <li><a href="raju.html" data-transition="slide" data-icon="info" rel="external" data-ajax="false">Raju</a></li>
+        <li><a href="raju.html" data-transition="slide" data-icon="info">Raju</a></li>
       </ul>
     </div>
   </div>

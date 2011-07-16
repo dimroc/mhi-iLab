@@ -67,7 +67,7 @@ render_chart = function ()
       topgutter = 20,
       colorhue = .6 || Math.random(),
       color = "hsb(" + [colorhue, .5, 1] + ")",
-      r = Raphael("holder", width, height),
+      r = Raphael($(".holder").last()[0], width, height),
       txt = {font: '12px Helvetica, Arial', fill: "#fff"},
       txt1 = {font: '10px Helvetica, Arial', fill: "#fff"},
       txt2 = {font: '12px Helvetica, Arial', fill: "#000"},
@@ -152,7 +152,5 @@ render_chart = function ()
 
 clear_chart = function()
 {
-  $("#holder").empty();
+  $(".holder").empty();
 }
-
-window.onload = render_chart;
