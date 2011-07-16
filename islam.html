@@ -48,6 +48,8 @@
   <script type="text/javascript">
 
 /*
+
+          // drawing lines
           var x1,x2,y1,y2;
 
           var stats = new Stats();
@@ -119,23 +121,10 @@
 
       // free drawing
 
+/*
         var draw = false;
 
-          var stats = new Stats();
-
-          // Align top-left
-          stats.domElement.style.position = 'absolute';
-          stats.domElement.style.left = '0px';
-          stats.domElement.style.top = '0px';
-
-          document.body.appendChild( stats.domElement );
-
-          setInterval( function () {
-
-              stats.update();
-
-          }, 1000 / 60 );
-
+         
 
         function touchStart( e ) {
 
@@ -177,6 +166,96 @@
         function touchEnd( e ) {
 
             draw=false;
+             e.preventDefault();
+
+             return false;
+
+          }
+          */
+
+
+function  onMouseDown(e){
+
+    var offset = $("#holder").offset();
+    var leftbase = offset.left;
+    var topbase = offset.top;
+
+    var x = e.pageX - leftbase;
+    var y = e.pageY - topbase;
+
+    //var r1=Raphael(0,0,800,250);
+
+    var circle = main_paper.circle(x, y, 10);
+
+    // Sets the fill attribute of the circle to red (#f00)
+    circle.attr("fill", "none");
+
+    // Sets the stroke attribute of the circle to white
+    circle.attr("stroke", "#fff");
+}
+
+
+var start = function () {
+    // storing original coordinates
+    this.ox = this.attr("cx");
+    this.oy = this.attr("cy");
+    this.attr({opacity: 1});
+},
+
+move = function (dx, dy) {
+    // move will be called with dx and dy
+    this.attr({cx: this.ox + dx, cy: this.oy + dy});
+},
+
+up = function () {
+    // restoring state
+    this.attr({opacity: .5});
+}; 
+
+function touchStart( e ) {
+
+
+
+
+    var targetEvent =  e.touches.item(0);
+    var offset = $("#holder").offset();
+    var leftbase = offset.left;
+    var topbase = offset.top;
+
+    var x = targetEvent.pageX - leftbase;
+    var y = targetEvent.pageY - topbase;
+
+
+
+    var circle = main_paper.circle(x-5, y-5, 10);
+
+    // Sets the fill attribute of the circle to red (#f00)
+    circle.attr("fill", "none");
+
+    // Sets the stroke attribute of the circle to white
+    circle.attr("stroke", "#fff");
+                        
+             e.preventDefault();
+
+             return false;
+
+        }
+
+         function touchMove( e ) {
+
+            var targetEvent =  e.touches.item(0);
+
+             test_circle.drag(move,start,up);
+
+             e.preventDefault();
+
+             return false;
+
+          }
+
+        function touchEnd( e ) {
+
+
              e.preventDefault();
 
              return false;
@@ -271,7 +350,8 @@
     </h1>
     <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div id="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
+      <!--div id="holder" ></div-->
+    <div id="holder" onmousedown="onMouseDown(event)" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
