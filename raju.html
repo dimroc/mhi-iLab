@@ -23,30 +23,31 @@
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
 
   <script type="text/javascript">
-    GLOBAL =
-    {
-      width: 800,
-      height: 400
-    };
-
-    GLOBAL.circles = new Array();
+    PAPER = new Object();
 
     $().ready(function()
     {
-      GLOBAL.paper = new Raphael("holder", GLOBAL.width, GLOBAL.height);
+      var width = 800, height = 400;
+      PAPER = new Raphael("holder", width, height);
+      PAPER.circles = new Array();
+      PAPER.rectangles = new Array();
+      PAPER.ellipses = new Array();
+      PAPER.paths = new Array();
+      PAPER.texts = new Array();
 
-      var circle = paper.circle(100, 100, 80);
+      PAPER.circles.push(PAPER.circle(100, 100, 80));
 
       for (var i = 0; i < 5; i += 1)
       {
         var multiplier = i * 5;
-        paper.circle(250 + (2 * multiplier), 100 + multiplier, 50 - multiplier);
+        PAPER.circles.push(PAPER.circle(250 + (2 * multiplier), 100 + multiplier, 50 - multiplier));
       }
 
-      var rectangle = paper.rect(200, 200, 250, 100);
-      var ellipse = paper.ellipse(200, 400, 100, 50);
+      var rectangle = PAPER.rectangles.push(PAPER.rect(200, 200, 250, 100));
+      var ellipse = PAPER.ellipses.push(PAPER.ellipse(200, 400, 100, 50));
 
-      var tetronimo = paper.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+      var tetronimo = PAPER.path("M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 50 l -50 0 l 0 50 z");
+      PAPER.paths.push(tetronimo);
       tetronimo.attr(
           {
             stroke: 'none',
@@ -58,10 +59,7 @@
         path: "M 250 250 l 0 -50 l -50 0 l 0 -50 l -100 0 l 0 50 l 50 0 l 0 50 z"
       }, 5000, 'elastic');
 
-      var text = paper.text(250, 450, 'Bye Bye Circle!')
-//      text.attr({opacity: 0, 'font-size': 12}).toBack();
-
-
+      PAPER.texts.push(PAPER.text(250, 450, 'Bye Bye Circle!'));
     });
   </script>
 

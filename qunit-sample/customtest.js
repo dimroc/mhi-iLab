@@ -1,4 +1,19 @@
 
+// TODO: CREATE A MODULE SPECIFICALLY FOR ui elements.
+
+test("[UI] Check title of the page", function () {
+    equal(document.getElementById("header").innerHTML, "Raju's", "Okay");
+});
+
+test("[UI] Check the existence of the raphael paper", function () {
+  ok(PAPER != undefined && PAPER != null);
+});
+
+test("[UI] Check the existence of a circle", function () {
+  ok(PAPER != undefined && PAPER != null);
+  ok(PAPER.circles.length > 0);
+});
+
 test("Check title of the page", function () {
     equal(document.getElementById("header").innerHTML, "Raju's", "Okay");
 });
