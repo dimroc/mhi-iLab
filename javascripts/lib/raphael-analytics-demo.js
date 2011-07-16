@@ -20,6 +20,8 @@ $(function () {
     });
 });
 
+main_paper = new Object();
+
 render_chart = function () {
     function getAnchors(p1x, p1y, p2x, p2y, p3x, p3y) {
         var l1 = (p2x - p1x) / 2,
@@ -49,39 +51,43 @@ render_chart = function () {
     $("#data tbody td").each(function () {
         data.push($(this).html());
     });
-    
+
+
+
     // Draw
     var width = 800,
-        height = 250,
-        leftgutter = 30,
+        height = 250;
+
+    main_paper = Raphael("holder", width, height);
+
+    var leftgutter = 30,
         bottomgutter = 20,
         topgutter = 20,
         colorhue = .6 || Math.random(),
         color = "hsb(" + [colorhue, .5, 1] + ")",
-        r = Raphael("holder", width, height),
         txt = {font: '12px Helvetica, Arial', fill: "#fff"},
         txt1 = {font: '10px Helvetica, Arial', fill: "#fff"},
         txt2 = {font: '12px Helvetica, Arial', fill: "#000"},
         X = (width - leftgutter) / labels.length,
         max = Math.max.apply(Math, data),
         Y = (height - bottomgutter - topgutter) / max;
-    r.drawGrid(leftgutter + X * .5 + .5, topgutter + .5, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#333");
-    var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
-        bgp = r.path().attr({stroke: "none", opacity: .3, fill: color}),
-        label = r.set(),
+    main_paper.drawGrid(leftgutter + X * .5 + .5, topgutter + .5, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#333");
+    var path = main_paper.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
+        bgp = main_paper.path().attr({stroke: "none", opacity: .3, fill: color}),
+        label = main_paper.set(),
         is_label_visible = false,
         leave_timer,
-        blanket = r.set();
-    label.push(r.text(60, 12, "24 hits").attr(txt));
-    label.push(r.text(60, 27, "22 September 2008").attr(txt1).attr({fill: color}));
+        blanket = main_paper.set();
+    label.push(main_paper.text(60, 12, "24 hits").attr(txt));
+    label.push(main_paper.text(60, 27, "22 September 2008").attr(txt1).attr({fill: color}));
     label.hide();
-    var frame = r.popup(100, 100, label, "right").attr({fill: "#000", stroke: "#666", "stroke-width": 2, "fill-opacity": .7}).hide();
+    var frame = main_paper.popup(100, 100, label, "right").attr({fill: "#000", stroke: "#666", "stroke-width": 2, "fill-opacity": .7}).hide();
 
     var p, bgpp;
     for (var i = 0, ii = labels.length; i < ii; i++) {
         var y = Math.round(height - bottomgutter - Y * data[i]),
             x = Math.round(leftgutter + X * (i + .5)),
-            t = r.text(x, height - 6, labels[i]).attr(txt).toBack();
+            t = main_paper.text(x, height - 6, labels[i]).attr(txt).toBack();
         if (!i) {
             p = ["M", x, y, "C", x, y];
             bgpp = ["M", leftgutter + X * .5, height - bottomgutter, "L", x, y, "C", x, y];
@@ -95,8 +101,8 @@ render_chart = function () {
             p = p.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
             bgpp = bgpp.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
         }
-        var dot = r.circle(x, y, 4).attr({fill: "#000", stroke: color, "stroke-width": 2});
-        blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr({stroke: "none", fill: "#fff", opacity: 0}));
+        var dot = main_paper.circle(x, y, 4).attr({fill: "#000", stroke: color, "stroke-width": 2});
+        blanket.push(main_paper.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr({stroke: "none", fill: "#fff", opacity: 0}));
         var rect = blanket[blanket.length - 1];
         (function (x, y, data, lbl, dot) {
             var timer, i = 0;
@@ -106,14 +112,14 @@ render_chart = function () {
                 if (x + frame.getBBox().width > width) {
                     side = "left";
                 }
-                var ppp = r.popup(x, y, label, side, 1);
+                var ppp = main_paper.popup(x, y, label, side, 1);
                 frame.show().stop().animate({path: ppp.path}, 200 * is_label_visible);
                 label[0].attr({text: data + " hit" + (data == 1 ? "" : "s")}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible);
                 label[1].attr({text: lbl + " September 2008"}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible);
-                dot.attr("r", 6);
+                dot.attr("r", 6); // TODO: to investigate
                 is_label_visible = true;
             }, function () {
-                dot.attr("r", 4);
+                dot.attr("r", 4);// TODO: to investigate
                 leave_timer = setTimeout(function () {
                     frame.hide();
                     label[0].hide();
