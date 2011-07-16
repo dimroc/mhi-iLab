@@ -23,6 +23,16 @@ test("[UI] Count the number of circles", function () {
   ok(PAPER.circles.length == 6);
 });
 
+test("[UI] Check color of circles", function () {
+
+    for (x = 1; x < 6; x++) {
+        ok(PAPER.circles[x].attrs.fill == "none")
+    };
+});
+
+test("[UI] Check color of rectangle", function () {
+    ok(PAPER.rectangles[0].attrs.fill == "none");
+});
 
 /*test("module without setup/teardown (default)", function() {
     expect(1);
