@@ -1,4 +1,8 @@
 
+test("Check title of the page", function () {
+    equal(document.getElementById("header").innerHTML, "Raju's", "Okay");
+});
+
 test("module without setup/teardown (default)", function() {
     expect(1);
 	ok(true);
