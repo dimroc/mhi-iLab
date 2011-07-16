@@ -58,7 +58,9 @@ render_chart = function () {
     var width = 800,
         height = 250;
 
-    main_paper = Raphael("holder", width, height);
+    //main_paper = Raphael("holder", width, height);
+
+     main_paper = Raphael($(".holder").last()[0], width, height);
 
     var leftgutter = 30,
         bottomgutter = 20,
@@ -141,7 +143,6 @@ render_chart = function () {
 
 clear_chart = function()
 {
-  $("#holder").empty();
+  $(".holder").empty();
 }
 
-window.onload = render_chart;
