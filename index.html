@@ -20,7 +20,7 @@
 
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-  <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
+  <script type="text/javascript" src="javascripts/lib/custom-chart.js"></script>
   <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
 
   <style type="text/css" media="screen">
@@ -29,9 +29,9 @@
     }
 
     #holder {
-      height: 300px;
-      margin: -125px 0 0 -400px;
-      width: 800px;
+      /*height: 400px;*/
+      /*margin: -150px 0 0 -450px;*/
+      /*width: 800px;*/
       /*background: #000;*/
 
     }
@@ -126,16 +126,20 @@
     </h1>
     <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div id="holder"></div>
+    <div id="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li><a href="#" data-icon="star" data-transition="slide" class="ui-btn-active"  rel="external" data-ajax="false">Home</a></li>
-        <li><a href="mitch.html" data-icon="grid" data-transition="slide"  rel="external" data-ajax="false">Mitch</a></li>
-        <li><a href="islam.html" data-icon="grid" data-transition="slide"  rel="external" data-ajax="false">Islam</a></li>
-        <li><a href="dimitri.html" data-icon="grid" data-transition="slide"  rel="external" data-ajax="false">Dimitri</a></li>
-        <li><a href="raju.html" data-transition="slide" data-icon="info"  rel="external" data-ajax="false">Raju</a></li>
+        <li><a href="#" data-icon="star" data-transition="slide" class="ui-btn-active" rel="external" data-ajax="false">Home</a>
+        </li>
+        <li><a href="mitch.html" data-icon="grid" data-transition="slide" rel="external" data-ajax="false">Mitch</a>
+        </li>
+        <li><a href="islam.html" data-icon="grid" data-transition="slide" rel="external" data-ajax="false">Islam</a>
+        </li>
+        <li><a href="dimitri.html" data-icon="grid" data-transition="slide" rel="external" data-ajax="false">Dimitri</a>
+        </li>
+        <li><a href="raju.html" data-transition="slide" data-icon="info" rel="external" data-ajax="false">Raju</a></li>
       </ul>
     </div>
   </div>
