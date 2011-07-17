@@ -2,11 +2,11 @@
 // TODO: CREATE A MODULE SPECIFICALLY FOR ui elements.
 
 test("[UI] Check title of the page", function () {
-    equal(document.getElementById("header").innerHTML, "Raju's", "Okay");
+    equal(document.getElementById("header").innerHTML, "UI Unit Testing", "Okay");
 });
 
 test("[UI] Check the number buttons", function () {
-    var mycount = $('ul>li').length
+    var mycount = $('ul>li').length;
     ok(mycount == 5);
 });
 
@@ -32,6 +32,10 @@ test("[UI] Check color of circles", function () {
 
 test("[UI] Check color of rectangle", function () {
     ok(PAPER.rectangles[0].attrs.fill == "none");
+});
+
+test("[UI] INTENTIONAL FAILURE", function () {
+  equal("Javascript", "Silverlight (intentional to illustrate a failed scenario)", "Okay");
 });
 
 /*test("module without setup/teardown (default)", function() {

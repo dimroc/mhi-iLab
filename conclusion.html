@@ -20,18 +20,14 @@
 
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-  <script type="text/javascript" src="javascripts/lib/custom-chart.js"></script>
-
-  // TODO: PLace every javascript file needed for the whole app here.
 
   <script>
-    function BlockMove(event)
-    {
+     function BlockMove(event)
+     {
       // Tell Safari not to move the window.
-      event.preventDefault();
-    }
-
-  </script>
+      event.preventDefault() ;
+     }
+   </script>
 
   <style type="text/css" media="screen">
     body {
@@ -43,36 +39,31 @@
   <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
 
 </head>
-<body ontouchmove="BlockMove(event);">
+<body>
 
 <div data-role="page" data-theme="a">
   <div data-role="header">
-    <h1>iLab - Interactive Charting with Web Technologies</h1>
+    <h1>Conclusion</h1>
   </div>
   <div data-role="content">
-    <h1>
-      Some header
-    </h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
-
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li><a href="#" data-icon="star" data-transition="slide" class="ui-btn-active" data-ajax="false">Intro</a>
+        <li><a href="index.html" data-icon="star" data-transition="slide" data-ajax="false">Intro</a>
         </li>
         <li><a href="trace.html" data-icon="grid" data-transition="slide" data-ajax="false">Tracing</a>
         </li>
         <li><a href="markup.html" data-icon="grid" data-transition="slide" data-ajax="false">Mark Up</a>
         </li>
-        <li><a href="uiunittest.html" data-icon="grid" data-transition="slide" data-ajax="false">UI Unit Tests</a>
+        <li><a href="uiunittest.html" data-icon="grid" data-transition="slide" data-ajax="false">UI Unit Test</a>
         </li>
-        <li><a href="conclusion.html" data-transition="slide" data-icon="info"
-            >Conclusion</a></li>
+        <li><a href="#" data-transition="slide" data-icon="info" class="ui-btn-active"
+>Conclusion</a></li>
       </ul>
     </div>
   </div>
-
 </div>
 </body>
 </html>
