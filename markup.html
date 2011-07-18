@@ -27,15 +27,14 @@
 
   <style type="text/css" media="screen">
     body {
-      background: #000;
+      /*background: #000;*/
     }
 
     .holder {
-      height: 300px;
+      height: 500px;
       margin: -125px 0 0 -400px;
       width: 800px;
       /*background: #000;*/
-
     }
   </style>
 
@@ -119,219 +118,203 @@
 </table>
 
 <div data-role="page" data-theme="a">
-<div data-role="header">
-  <h1>Marking Up Charts and Saving Dynamic Visuals</h1>
-  <a href="index.html" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
-</div>
-<div data-role="content">
-  <!-- what we will add for drawing lines -->
-  <script type="text/javascript">
-    function BlockMove(event)
-    {
-      // Tell Safari not to move the window.
-      event.preventDefault();
-    }
+  <div data-role="header">
+    <h1>Marking Up Charts and Saving Dynamic Visuals</h1>
+    <a href="javascript:save()" data-icon="check" class="ui-btn-right" data-theme="b">Save</a>
+  </div>
+  <div data-role="content">
+    <!-- what we will add for drawing lines -->
+    <script type="text/javascript">
+      function BlockMove(event)
+      {
+        // Tell Safari not to move the window.
+        event.preventDefault();
+      }
 
-    $("div").live("pagecreate", function()
-    {
-      var url = $(this).jqmData("url");
-      clear_chart();
-      render_chart();
-    });
-    /*
+      $("div").live("pagecreate", function()
+      {
+        var url = $(this).jqmData("url");
+        clear_chart();
+        render_chart();
+      });
+      /*
 
-     // drawing lines
-     var x1,x2,y1,y2;
+       // drawing lines
+       var x1,x2,y1,y2;
 
-     var stats = new Stats();
+       var stats = new Stats();
 
-     // Align top-left
-     stats.domElement.style.position = 'absolute';
-     stats.domElement.style.left = '0px';
-     stats.domElement.style.top = '0px';
+       // Align top-left
+       stats.domElement.style.position = 'absolute';
+       stats.domElement.style.left = '0px';
+       stats.domElement.style.top = '0px';
 
-     document.body.appendChild( stats.domElement );
+       document.body.appendChild( stats.domElement );
 
-     setInterval( function () {
+       setInterval( function () {
 
-     stats.update();
+       stats.update();
 
-     }, 1000 / 60 );
-
-
-     function touchStart( e ) {
-
-     var targetEvent =  e.touches.item(0);
-
-     $("#current").attr({
-     id: ''
-     })
-     box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
-     $(document.body).append(box);
-
-     x1 = targetEvent.clientX;
-     y1 = targetEvent.clientY;
-     box.attr({id: 'current'}).css({
-     top: targetEvent.clientX , //offsets
-     left: targetEvent.clientY //offsets
-     }).fadeIn();
+       }, 1000 / 60 );
 
 
-     e.preventDefault();
+       function touchStart( e ) {
 
-     return false;
+       var targetEvent =  e.touches.item(0);
 
-     }
+       $("#current").attr({
+       id: ''
+       })
+       box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
+       $(document.body).append(box);
 
-     function touchMove( e ) {
-
-     var targetEvent =  e.touches.item(0);
-
-     $("#current").css({
-     width:Math.abs(targetEvent.clientX - x1), //offsets
-     height:Math.abs(targetEvent.clientY - y1)//offsets
-     }).fadeIn();
-
-     e.preventDefault();
-
-     return false;
-
-     }
-
-     function touchEnd( e ) {
-
-     $("#current").attr({ id: ''
-     });
-     e.preventDefault();
-
-     return false;
-
-     }
-     */
+       x1 = targetEvent.clientX;
+       y1 = targetEvent.clientY;
+       box.attr({id: 'current'}).css({
+       top: targetEvent.clientX , //offsets
+       left: targetEvent.clientY //offsets
+       }).fadeIn();
 
 
-    // free drawing
+       e.preventDefault();
+
+       return false;
+
+       }
+
+       function touchMove( e ) {
+
+       var targetEvent =  e.touches.item(0);
+
+       $("#current").css({
+       width:Math.abs(targetEvent.clientX - x1), //offsets
+       height:Math.abs(targetEvent.clientY - y1)//offsets
+       }).fadeIn();
+
+       e.preventDefault();
+
+       return false;
+
+       }
+
+       function touchEnd( e ) {
+
+       $("#current").attr({ id: ''
+       });
+       e.preventDefault();
+
+       return false;
+
+       }
+       */
 
 
-    var draw = false;
+      // free drawing
 
 
-    function touchStart(e)
-    {
+      var draw = false;
 
-      var targetEvent = e.touches.item(0);
-      var offset = $("#markupHolder").offset();
-      var leftbase = offset.left;
-      var topbase = offset.top;
+      function onInteractStart(e)
+      {
+        if (draw)
+        {
+          draw = false;
+        }
+        else
+        {
+          var offset = $("#markupHolder").offset();
+          var leftbase = offset.left;
+          var topbase = offset.top;
 
-      var x = targetEvent.pageX - leftbase;
-      var y = targetEvent.pageY - topbase;
+          var x = e.pageX - leftbase;
+          var y = e.pageY - topbase;
 
-      //var r1=Raphael(0,0,800,250);
+          //var r1=Raphael(0,0,800,250);
 
-      var circle = main_paper.circle(x, y, 10);
+          var circle = main_paper.circle(x, y, 10);
 
-      // Sets the fill attribute of the circle to red (#f00)
-      circle.attr("fill", "none");
+          // Sets the fill attribute of the circle to red (#f00)
+          circle.attr("fill", "none");
 
-      // Sets the stroke attribute of the circle to white
-      circle.attr("stroke", "#fff");
+          // Sets the stroke attribute of the circle to white
+          circle.attr("stroke", "#fff");
 
+          draw = true;
+        }
+      }
 
-      draw = true;
-      e.preventDefault();
+      function onInteractMove(e)
+      {
+        if (draw == true)
+        {
+          //make a pixel (5X5) at mouse position
+          pointer = $('<span>').css({
+            'position':'absolute',
+            'background-color':'#ff00ff',
+            'width':'5px',
+            'height':'5px',
+            top: e.pageY ,    //offsets
+            left: e.pageX   //offsets
+          });
 
-      return false;
+          //append it to body
+          $(document.body).append(pointer);
+        }
+      }
 
-    }
+      function touchStart(e)
+      {
+        var targetEvent = e.touches.item(0);
+        onInteractStart(targetEvent);
 
-    function touchMove(e)
-    {
+        e.preventDefault();
+        return false;
+      }
 
-      var targetEvent = e.touches.item(0);
+      function touchMove(e)
+      {
+        var targetEvent = e.touches.item(0);
+        onInteractMove(e);
+        e.preventDefault();
+        return false;
+      }
 
-      if (draw == true)
+      function touchEnd(e)
       {
 
-        //make a pixel (5X5) at mouse position
-        pointer = $('<span>').css({
-          'position':'absolute',
-          'background-color':'#ff00ff',
-          'width':'5px',
-          'height':'5px',
-          top: targetEvent.pageY ,    //offsets
-          left: targetEvent.pageX   //offsets
-        });
+        draw = false;
+        e.preventDefault();
 
-        //append it to body
-        $(document.body).append(pointer);
-        $(document.body).append(pointer);
+        return false;
+
       }
-      e.preventDefault();
 
-      return false;
+    </script>
+    <h1>
+      Hello World
+    </h1>
 
-    }
-
-    function touchEnd(e)
-    {
-
-      draw = false;
-      e.preventDefault();
-
-      return false;
-
-    }
-
-
-    function onMouseDown(e)
-    {
-
-      var offset = $("#markupHolder").offset();
-      var leftbase = offset.left;
-      var topbase = offset.top;
-
-      var x = e.pageX - leftbase;
-      var y = e.pageY - topbase;
-
-      //var r1=Raphael(0,0,800,250);
-
-      var circle = main_paper.circle(x, y, 10);
-
-      // Sets the fill attribute of the circle to red (#f00)
-      circle.attr("fill", "none");
-
-      // Sets the stroke attribute of the circle to white
-      circle.attr("stroke", "#fff");
-    }
-
-
-  </script>
-  <h1>
-    Hello World
-  </h1>
-  <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
-
-  <!--div id="holder" ></div-->
-  <div class="holder" id="markupHolder" onmousedown="onMouseDown(event)" ontouchmove="touchMove(event)"
-       ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
-</div>
-<div data-role="footer" data-id="universal_footer" data-position="fixed">
-  <div data-role="navbar">
-    <ul>
-      <li><a href="index.html" data-icon="star" data-transition="slide">Intro</a>
-      </li>
-      <li><a href="trace.html" data-icon="grid" data-transition="slide">Tracing</a>
-      </li>
-      <li><a href="#" data-icon="grid" data-transition="slide" class="ui-btn-active">Mark Up</a>
-      </li>
-      <li><a href="uiunittest.html" data-icon="grid" data-transition="slide" data-ajax="false">UI Unit Test</a>
-      </li>
-      <li><a href="conclusion.html" data-transition="slide" data-icon="info"
-          >Conclusion</a></li>
-    </ul>
+    <!--div id="holder" ></div-->
+    <div class="holder" id="markupHolder"
+         onmousedown="onInteractStart(event)" onmousemove="onInteractMove(event)"
+         ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
   </div>
-</div>
+  <div data-role="footer" data-id="universal_footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="index.html" data-icon="star" data-transition="slide" data-ajax="false">Intro</a>
+        </li>
+        <li><a href="trace.html" data-icon="grid" data-transition="slide" data-ajax="false">Tracing</a>
+        </li>
+        <li><a href="#" data-icon="grid" data-transition="slide" data-ajax="false" class="ui-btn-active">Mark Up</a>
+        </li>
+        <li><a href="uiunittest.html" data-icon="grid" data-transition="slide" data-ajax="false">UI Unit Test</a>
+        </li>
+        <li><a href="conclusion.html" data-transition="slide" data-icon="info"
+            >Conclusion</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 </body>
 </html>

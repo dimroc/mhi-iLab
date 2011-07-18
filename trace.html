@@ -20,26 +20,36 @@
 
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
-  <script type="text/javascript" src="javascripts/lib/custom-chart.js"></script>
+  <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
   <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
 
   <script>
-     function BlockMove(event) {
+    function BlockMove(event)
+    {
       // Tell Safari not to move the window.
-      event.preventDefault() ;
-     }
+      event.preventDefault();
+    }
 
-       $("div").live("pagecreate", function(){
-            var url = $(this).jqmData("url");
-           clear_chart();
-           render_chart();
-        });
+    $("div").live("pagecreate", function()
+    {
+      var url = $(this).jqmData("url");
+      clear_chart();
+      render_chart();
+    });
 
-   </script>
+
+  </script>
 
   <style type="text/css" media="screen">
     body {
-      background: #000;
+      /*background: #000;*/
+    }
+
+    .holder {
+      height: 500px;
+      margin: -125px 0 0 -400px;
+      width: 800px;
+      /*background: #000;*/
     }
   </style>
 
@@ -47,7 +57,7 @@
   <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
 
 </head>
-<body  ontouchmove="BlockMove(event);">
+<body ontouchmove="BlockMove(event);">
 <table id="data">
   <tfoot>
   <tr>
@@ -126,21 +136,42 @@
     <h1>Finger Tracing</h1>
   </div>
   <div data-role="content">
+    <script>
+      function adjust_coordinates(x)
+      {
+        var offset = $(".holder").first().offset();
+        var leftbase = offset.left;
+        var topbase = offset.top;
+
+        var newx = x - leftbase;
+        return newx;
+      }
+
+      function mouseMove(event)
+      {
+        tryUpdatePopup(adjust_coordinates(event.pageX));
+      }
+
+      function touchMove(event)
+      {
+        var targetEvent = e.touches.item(0);
+        tryUpdatePopup(adjust_coordinates(targetEvent.pageX));
+      }
+    </script>
     <h1>
       Hello World
     </h1>
-    <a href="javascript:clear_chart(); render_chart();" data-role="button">Redraw chart</a>
 
-    <div class="holder" ontouchmove="touchMove(event)" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)"></div>
+    <div class="holder" ontouchmove="touchMove(event)" onmousemove="mouseMove(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">
       <ul>
-        <li><a href="index.html" data-icon="star" data-transition="slide">Intro</a>
+        <li><a href="index.html" data-icon="star" data-transition="slide" data-direction="reverse">Intro</a>
         </li>
         <li><a href="#" data-icon="grid" data-transition="slide" class="ui-btn-active">Tracing</a>
         </li>
-        <li><a href="markup.html" data-icon="grid" data-transition="slide">Mark Up</a>
+        <li><a href="markup.html" data-icon="grid" data-transition="slide" data-ajax="false">Mark Up</a>
         </li>
         <li><a href="uiunittest.html" data-icon="grid" data-transition="slide" data-ajax="false">UI Unit Test</a>
         </li>
