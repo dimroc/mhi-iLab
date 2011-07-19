@@ -23,7 +23,7 @@
   <script type="text/javascript" src="javascripts/lib/raphael/raphael.js"></script>
   <script type="text/javascript" src="javascripts/lib/popup.js"></script>
   <script type="text/javascript" src="javascripts/lib/raphael-analytics-demo.js"></script>
-
+  <script type="text/javascript" src="javascripts/lib/Stats.js"></script>
 
   <style type="text/css" media="screen">
     body {
@@ -125,11 +125,6 @@
   <div data-role="content">
     <!-- what we will add for drawing lines -->
     <script type="text/javascript">
-      function BlockMove(event)
-      {
-        // Tell Safari not to move the window.
-        event.preventDefault();
-      }
 
       $("div").live("pagecreate", function()
       {
@@ -137,129 +132,92 @@
         clear_chart();
         render_chart();
       });
-      /*
 
-       // drawing lines
-       var x1,x2,y1,y2;
+      function adjust_coordinates(x, y)
+      {
+        var offset = $("#markupHolder").offset();
+        var leftbase = offset.left;
+        var topbase = offset.top;
 
-       var stats = new Stats();
+        var newx = x - leftbase;
+        var newy = y - topbase;
 
-       // Align top-left
-       stats.domElement.style.position = 'absolute';
-       stats.domElement.style.left = '0px';
-       stats.domElement.style.top = '0px';
+        return { x: newx, y: newy };
+      }
 
-       document.body.appendChild( stats.domElement );
+      var currentLine = null;
+      function redrawCurrentLine()
+      {
+        if (currentLine)
+          currentLine.remove();
 
-       setInterval( function () {
+        var constructionString = "";
+        for (var i = 0; i < currentPoints.length; i++)
+        {
+          var p = currentPoints[i];
+          constructionString += p.type + p.x + " " + p.y;
+        }
 
-       stats.update();
+        currentLine = main_paper.path(constructionString);
+        currentLine.attr({stroke: "red", "stroke-width": 4});
+      }
 
-       }, 1000 / 60 );
+      function drawCircle(x, y)
+      {
+        var circle = main_paper.circle(x, y, 3);
 
+        // Sets the fill attribute of the circle to red (#f00)
+        circle.attr("fill", "white");
 
-       function touchStart( e ) {
-
-       var targetEvent =  e.touches.item(0);
-
-       $("#current").attr({
-       id: ''
-       })
-       box = $('<div style="border-top:1px #FF00FF solid;position:fixed;width:1px;">').hide();
-       $(document.body).append(box);
-
-       x1 = targetEvent.clientX;
-       y1 = targetEvent.clientY;
-       box.attr({id: 'current'}).css({
-       top: targetEvent.clientX , //offsets
-       left: targetEvent.clientY //offsets
-       }).fadeIn();
-
-
-       e.preventDefault();
-
-       return false;
-
-       }
-
-       function touchMove( e ) {
-
-       var targetEvent =  e.touches.item(0);
-
-       $("#current").css({
-       width:Math.abs(targetEvent.clientX - x1), //offsets
-       height:Math.abs(targetEvent.clientY - y1)//offsets
-       }).fadeIn();
-
-       e.preventDefault();
-
-       return false;
-
-       }
-
-       function touchEnd( e ) {
-
-       $("#current").attr({ id: ''
-       });
-       e.preventDefault();
-
-       return false;
-
-       }
-       */
-
+        // Sets the stroke attribute of the circle to white
+        circle.attr("stroke", "#fff");
+      }
 
       // free drawing
-
-
-      var draw = false;
+      var isDraw = false;
 
       function onInteractStart(e)
       {
-        if (draw)
+        if (isDraw)
         {
-          draw = false;
+          onInteractEnd(e)
         }
         else
         {
-          var offset = $("#markupHolder").offset();
-          var leftbase = offset.left;
-          var topbase = offset.top;
+          var coordinates = adjust_coordinates(e.pageX, e.pageY);
+          var x = coordinates.x;
+          var y = coordinates.y;
 
-          var x = e.pageX - leftbase;
-          var y = e.pageY - topbase;
+          currentPoints = [];
+          currentLine = null;
 
-          //var r1=Raphael(0,0,800,250);
-
-          var circle = main_paper.circle(x, y, 10);
-
-          // Sets the fill attribute of the circle to red (#f00)
-          circle.attr("fill", "none");
-
-          // Sets the stroke attribute of the circle to white
-          circle.attr("stroke", "#fff");
-
-          draw = true;
+          currentPoints.push({ type: "M", x: x, y: y });
+          drawCircle(x, y);
+          isDraw = true;
         }
       }
 
+      var currentPoints = [];
       function onInteractMove(e)
       {
-        if (draw == true)
+        if (isDraw == true)
         {
-          //make a pixel (5X5) at mouse position
-          pointer = $('<span>').css({
-            'position':'absolute',
-            'background-color':'#ff00ff',
-            'width':'5px',
-            'height':'5px',
-            top: e.pageY ,    //offsets
-            left: e.pageX   //offsets
-          });
+          var coordinates = adjust_coordinates(e.pageX, e.pageY);
+          var x = coordinates.x;
+          var y = coordinates.y;
 
-          //append it to body
-          $(document.body).append(pointer);
+          currentPoints.push({ type: "L", x: x, y: y });
+          redrawCurrentLine();
         }
+      }
+
+      function onInteractEnd(e)
+      {
+        var coordinates = adjust_coordinates(e.pageX, e.pageY);
+        var x = coordinates.x;
+        var y = coordinates.y;
+        drawCircle(x, y);
+        isDraw = false;
       }
 
       function touchStart(e)
@@ -274,24 +232,31 @@
       function touchMove(e)
       {
         var targetEvent = e.touches.item(0);
-        onInteractMove(e);
+        onInteractMove(targetEvent);
         e.preventDefault();
         return false;
       }
 
       function touchEnd(e)
       {
+//        $("#additional_information").text("touch end!");
+        // touches doesn't exist in the touchEnd event.
+        var p = currentPoints[currentPoints.length - 1];
+        if(p)
+        {
+          drawCircle(p.x, p.y);
+        }
 
-        draw = false;
+        isDraw = false;
         e.preventDefault();
-
         return false;
-
       }
 
     </script>
     <h1>
-      Hello World
+      Use your finger to add markup to the chart.
+      <br/>
+      <span id="additional_information"></span>
     </h1>
 
     <!--div id="holder" ></div-->

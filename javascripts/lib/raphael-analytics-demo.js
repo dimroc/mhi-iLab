@@ -38,7 +38,7 @@ find_closest_invocation = function(x)
 {
   var invocation;
   var minX = 100000;
-  for (var i = 0; i<popup_invocations.length; i++)
+  for (var i = 0; i < popup_invocations.length; i++)
   {
     var cur = popup_invocations[i];
 
@@ -56,35 +56,46 @@ find_closest_invocation = function(x)
 
 tryUpdatePopup = function (x)
 {
-  if(previous_invocation)
-  {
-    // previous_invocation.hoverOff();
-  }
-
   var invocation = find_closest_invocation(x);
-  if(invocation && invocation != previous_invocation)
+  if (invocation && invocation != null && invocation != previous_invocation)
   {
     invocation.hoverOn();
+
+    if (previous_invocation && previous_invocation != invocation)
+    {
+      previous_invocation.hoverOff();
+    }
+
     previous_invocation = invocation;
   }
 };
 
+var isReadyForNextInstruction = true;
 activate_popup = function(x, y, data, lbl, dot, frame, label)
 {
   return (function ()
   {
-    clearTimeout(leave_timer);
-    var side = "right";
-    if (x + frame.getBBox().width > main_paper_width)
+    if (isReadyForNextInstruction)
     {
-      side = "left";
+      isReadyForNextInstruction = false;
+//    clearTimeout(leave_timer);
+      setTimeout(function()
+      {
+        var side = "right";
+        if (x + frame.getBBox().width > main_paper_width)
+        {
+          side = "left";
+        }
+
+        is_label_visible = true;
+
+        var ppp = main_paper.popup(x, y, label, side, 1);
+        frame.show().stop().animate({path: ppp.path}, 200 * is_label_visible);
+        label[0].attr({text: data + " hit" + (data == 1 ? "" : "s")}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible);
+        label[1].attr({text: lbl + " September 2008"}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible, function() { isReadyForNextInstruction = true; });
+        dot.attr("r", 6); // TODO: to investigate
+      }, 10);
     }
-    var ppp = main_paper.popup(x, y, label, side, 1);
-    frame.show().stop().animate({path: ppp.path}, 200 * is_label_visible);
-    label[0].attr({text: data + " hit" + (data == 1 ? "" : "s")}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible);
-    label[1].attr({text: lbl + " September 2008"}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible);
-    dot.attr("r", 6); // TODO: to investigate
-    is_label_visible = true;
   });
 };
 
@@ -94,13 +105,13 @@ deactivate_popup = function (dot, frame, label)
   {
     dot.attr("r", 4);
     // TODO: to investigate
-    leave_timer = setTimeout(function ()
-    {
-      frame.hide();
-      label[0].hide();
-      label[1].hide();
-      is_label_visible = false;
-    }, 1);
+//    leave_timer = setTimeout(function ()
+//    {
+//      frame.hide();
+//      label[0].hide();
+//      label[1].hide();
+//      is_label_visible = false;
+//    }, 1);
   });
 };
 

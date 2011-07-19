@@ -57,7 +57,7 @@
   <script type="text/javascript" src="javascripts/lib/jquery.mobile-1.0b1.js"></script>
 
 </head>
-<body ontouchmove="BlockMove(event);">
+<body>
 <table id="data">
   <tfoot>
   <tr>
@@ -149,20 +149,29 @@
 
       function mouseMove(event)
       {
+        $("#coordinate_info").text("x-coordinate " + event.pageX);
         tryUpdatePopup(adjust_coordinates(event.pageX));
       }
 
-      function touchMove(event)
+      function touchMove(e)
       {
         var targetEvent = e.touches.item(0);
+        $("#coordinate_info").text("x-coordinate " + targetEvent.pageX);
         tryUpdatePopup(adjust_coordinates(targetEvent.pageX));
+        e.preventDefault();
+        return false;
       }
-    </script>
-    <h1>
-      Hello World
-    </h1>
 
-    <div class="holder" ontouchmove="touchMove(event)" onmousemove="mouseMove(event)"></div>
+    </script>
+    <h2 id="instructions">
+      Drag your finger alone the line in the chart below.
+      <br/>
+      <span id="coordinate_info"></span>
+    </h2>
+
+    <div class="holder"
+         ontouchmove="touchMove(event)"
+         onmousemove="mouseMove(event)"></div>
   </div>
   <div data-role="footer" data-id="universal_footer" data-position="fixed">
     <div data-role="navbar">

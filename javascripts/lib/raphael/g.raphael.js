@@ -149,10 +149,10 @@
             R;
         for (var i = 1; i < n * 2 + 1; i++) {
             R = i % 2 ? rout : rin;
-            points = points.concat([+(cx + R * Math.sin(i * Math.PI / n)).toFixed(3), +(cy + R * Math.cos(i * Math.PI / n)).toFixed(3)]);
+            currentPoints = currentPoints.concat([+(cx + R * Math.sin(i * Math.PI / n)).toFixed(3), +(cy + R * Math.cos(i * Math.PI / n)).toFixed(3)]);
         }
-        points.push("z");
-        return this.path(points.join(","));
+        currentPoints.push("z");
+        return this.path(currentPoints.join(","));
     };
     Raphael.fn.g.star = function (cx, cy, r, r2, rays) {
         r2 = r2 || r * .382;
@@ -161,10 +161,10 @@
             R;
         for (var i = 1; i < rays * 2; i++) {
             R = i % 2 ? r : r2;
-            points = points.concat([(cx + R * Math.sin(i * Math.PI / rays)), (cy + R * Math.cos(i * Math.PI / rays))]);
+            currentPoints = currentPoints.concat([(cx + R * Math.sin(i * Math.PI / rays)), (cy + R * Math.cos(i * Math.PI / rays))]);
         }
-        points.push("z");
-        return this.path(points.join(","));
+        currentPoints.push("z");
+        return this.path(currentPoints.join(","));
     };
     Raphael.fn.g.cross = function (cx, cy, r) {
         r = r / 2.5;
