@@ -92,7 +92,10 @@ activate_popup = function(x, y, data, lbl, dot, frame, label)
         var ppp = main_paper.popup(x, y, label, side, 1);
         frame.show().stop().animate({path: ppp.path}, 200 * is_label_visible);
         label[0].attr({text: data + " hit" + (data == 1 ? "" : "s")}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible);
-        label[1].attr({text: lbl + " September 2008"}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible, function() { isReadyForNextInstruction = true; });
+        label[1].attr({text: lbl + " September 2008"}).show().stop().animateWith(frame, {translation: [ppp.dx, ppp.dy]}, 200 * is_label_visible, function()
+        {
+          isReadyForNextInstruction = true;
+        });
         dot.attr("r", 6); // TODO: to investigate
       }, 10);
     }
@@ -228,9 +231,16 @@ clear_chart = function()
 
 function save()
 {
+  var svgdata = { 'svg': $('#markupHolder').html() };
   // Dispatch svg chart from client to back-end and have it rendered elsewhere.
-
-  // Display prompt with link to saved chart.
-  // TODO:
+  $.ajax({
+    type: 'POST',
+    url: 'localhost:3000/pdf',
+    data: svgdata,
+    success: function(data)
+    {
+      alert("Saved chart to pdf!");
+    }
+  });
 }
 
